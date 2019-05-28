@@ -1,10 +1,14 @@
 swagger: "2.0"
 info:
   version: 1.0.0
-  title: Hyperledger Fabric 1.2 Balance Transfer API
-  description: Simple Api Sample for to interact with HLF 1.2 NETWORK
+  title: ICS API Ver 1.0
+  description: Api Sample for to ICS HLF Framework
 basePath: /api/v1
 tags:
+  - name: Product
+    description: Product
+  - name: Delivery
+    description: Delivery
   - name: Examples
     description: Simple example endpoints
   - name: Balance
@@ -18,6 +22,88 @@ produces:
   - application/json
 
 definitions:
+  product:
+    required:
+    - dstrb_id
+    - seq
+    - lat
+    - lng
+    - full_addr
+    - prv_nm
+    - city_nm
+    - dstr_nm
+    - dv_id
+    - dstrb_typ_cd
+    - dstrb_typ_nm
+    - corp_id
+    - corp_nm
+    - corp_user_id
+    - corp_user_nm
+    - prod_nm
+    - rgst_dtm
+    properties:
+      dstrb_id:
+        type: string
+      seq:
+        type: string
+      lat:
+        type: string
+      lng:
+        type: string
+      full_addr:
+        type: string
+      prv_nm:
+        type: string
+      city_nm:
+        type: string
+      dstr_nm:
+        type: string
+      dv_id:
+        type: string
+      dstrb_typ_cd:
+        type: string
+      dstrb_typ_nm:
+        type: string
+      corp_id:
+        type: string
+      corp_nm:
+        type: string
+      corp_user_id:
+        type: string
+      corp_user_nm:
+        type: string
+      prod_nm:
+        type: string
+      rgst_dtm:
+        type: string
+
+  delivery:
+    required:
+    - dv_id
+    - dv_dtm
+    - corp_id
+    - corp_nm
+    - lat
+    - lng
+    - corp_user_id
+    - corp_user_nm
+    properties:
+      dv_id:
+        type: string
+      dv_dtm:
+        type: string
+      corp_id:
+        type: string
+      corp_nm:
+        type: string
+      lat:
+        type: string
+      lng:
+        type: string
+      corp_user_id:
+        type: string
+      corp_user_nm:
+        type: string
 
   ExampleBody:
     type: object
@@ -52,6 +138,66 @@ definitions:
         type: integer
 
 paths:
+  /product/{id}/:
+    get:
+      tags:
+      - Product
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 상품 seq ex) 9
+        type: string
+      description: 상품정보 조회
+      responses:
+        200:
+          description: Returns Product Change History
+
+  /product:
+    post:
+      tags:
+      - Product
+      parameters:
+      - name: example
+        in: body
+        required: true
+        description: Product Info For Regist Blockchain
+        schema:
+          $ref: "#/definitions/product"
+      description: Regist Product information
+      responses:
+        200:
+          description: Returns like success/fail code
+  /delivery/{id}/:
+    get:
+      tags:
+      - Delivery
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: query delivery dv_id
+        type: string
+      description: Get Delivery Info
+      responses:
+        200:
+          description: Returns Delivery History
+
+  /delivery:
+    post:
+      tags:
+      - Delivery
+      parameters:
+      - name: id
+        in: body
+        required: true
+        schema:
+          $ref: "#/definitions/delivery"
+      description: The id of the user to be added
+      responses:
+        200:
+          description: Returns User's Current Balance
+
   /balance/saveUser:
     post:
       tags:
@@ -145,7 +291,6 @@ paths:
     post:
       tags:
       - Balance
-      Summary: Add the new user
       parameters:
       - name: id
         in: body

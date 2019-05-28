@@ -30,11 +30,9 @@ class TrxClient {
       const responsePayLoads = await channel.queryByChaincode(request);
       if (responsePayLoads) {
         for (let i = 0; i < responsePayLoads.length; i++) {
-          logger.info(`${args[0]} now has ${responsePayLoads[i].toString('utf8')
-          } after the move`);
+          logger.info(`${responsePayLoads[i].toString('utf8')}`);
         }
-        return `${args[0]} now has ${responsePayLoads[0].toString('utf8')
-        } after the move`;
+        return `${responsePayLoads[0].toString('utf8')}`;
       }
       logger.error('responsePayLoads is null');
       return 'responsePayLoads is null';
