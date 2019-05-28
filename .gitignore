@@ -10,3 +10,4 @@ package-lock.json
 tools/network/docker/*
 tools/network/bin/*
 kv/*
+log/*.log
